@@ -30,7 +30,8 @@ namespace SignalRAuth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSignalR();
+            services.AddSingleton(typeof(ConnectionList));
+            services.AddSignalR(options => { options.EnableDetailedErrors = true; options.KeepAliveInterval = TimeSpan.FromSeconds(10); });
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
              {
                  options.User.RequireUniqueEmail = false;
@@ -40,14 +41,15 @@ namespace SignalRAuth
              }
             ).AddEntityFrameworkStores<AppDbContext>(); 
 
-            services.AddAuthentication().AddCookie();
+            services.AddAuthentication().AddCookie(builder => builder.Cookie.Name = "someName");
+            services.AddAntiforgery(options => options.Cookie.Name = "someName");
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
 

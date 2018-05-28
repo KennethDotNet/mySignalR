@@ -20,6 +20,7 @@ namespace SignalRAuth.Models
             if(!context.Users.Any())
             {
                 await userManager.CreateAsync(new ApplicationUser { UserName = "test", Email = "test@infoeasy.no", EmailConfirmed = true, Fullname = "Test user" }, "Password!123");
+                await userManager.CreateAsync(new ApplicationUser { UserName = "test2", Email = "tes2t@infoeasy.no", EmailConfirmed = true, Fullname = "Test user2" }, "Password!123");
                 await context.SaveChangesAsync();
             }
 
