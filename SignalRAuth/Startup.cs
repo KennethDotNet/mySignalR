@@ -42,7 +42,7 @@ namespace SignalRAuth
             ).AddEntityFrameworkStores<AppDbContext>(); 
 
             services.AddAuthentication().AddCookie(builder => builder.Cookie.Name = "someName");
-            services.AddAntiforgery(options => options.Cookie.Name = "someName");
+            services.AddAntiforgery(options => options.Cookie.Name = "someOtherName");
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
         }
