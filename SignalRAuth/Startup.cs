@@ -39,10 +39,9 @@ namespace SignalRAuth
                  options.Password.RequireUppercase = false;
                  options.Password.RequireNonAlphanumeric = false;
              }
-            ).AddEntityFrameworkStores<AppDbContext>(); 
+            ).AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddAuthentication().AddCookie(builder => builder.Cookie.Name = "someName");
-            services.AddAntiforgery(options => options.Cookie.Name = "someOtherName");
+            services.AddAuthentication();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
         }

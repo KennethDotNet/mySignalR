@@ -1,5 +1,5 @@
 ﻿const connection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost/SignalRAuth/test")
+    .withUrl("/test")
     .configureLogging(signalR.LogLevel.Trace)
     .build();
 connection.start().catch(function (err) { console.error(err.toString()); });
